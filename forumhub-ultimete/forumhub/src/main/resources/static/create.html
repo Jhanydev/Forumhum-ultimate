@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Novo Tópico - FórumHub</title>
+<link rel="stylesheet" href="/assets/style.css"></head>
+<body><main class="container">
+<h2>Novo Tópico</h2>
+<input id="title" placeholder="Título">
+<input id="course" placeholder="Curso (ex: Spring Boot)">
+<textarea id="message" placeholder="Mensagem"></textarea>
+<input id="tags" placeholder="Tags separadas por vírgula (ex: java,spring)">
+<button onclick="createTopic()">Publicar</button>
+</main>
+<script src="/assets/app.js"></script>
+<script>
+async function createTopic(){
+  const title = titleEl.value, message = messageEl.value, course = courseEl.value;
+  const tags = document.getElementById('tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+  await api('/topics',{method:'POST',body:{title,message,course,tags}});
+  location.href = '/';
+}
+const titleEl = document.getElementById('title');
+const courseEl = document.getElementById('course');
+const messageEl = document.getElementById('message');
+</script>
+</body></html>
